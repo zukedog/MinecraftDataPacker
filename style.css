@@ -1,0 +1,17 @@
+@charset "UTF-8";
+/* CSS Document */
+
+ body {
+    background-color: grey;
+}
+
+.sidebar{
+	position:fixed;
+    top: 5px;
+    left: 5px;
+    border: 1px solid #111;;
+	background-color: darkgray;
+	text-align: center;
+	color: black;
+
+}
