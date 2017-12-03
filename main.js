@@ -1,9 +1,5 @@
 var nsFolders = ["functions","loot_tables","structures","advancements","recipes"];
-
-
-var zip = new JSZip();
-zip.file("Hello.txt", "Hello World\n");
-
+var DataPacks=[];
 
 function download(adress){
 	DataPacks[adress].zip.generateAsync({type:"blob"})
@@ -13,7 +9,7 @@ function download(adress){
 	});
 }
 
-var DataPacks=[];
+
 
 function newDataPack(name,description,format){
 	
@@ -26,21 +22,15 @@ function newDataPack(name,description,format){
 function pack(name){
 	this.name=name;
 	this.zip= new JSZip();
+	
 	this.newNamespace = function(nsName){
-		console.log("namespace: "+nsName);
 		var ns = this.zip.folder("/data/"+nsName);
 		for(var i=0; i<nsFolders.length; i++){
 			ns.folder(nsFolders[i]);
 		}
-		
 	};
-	
 }
 
-
-newDataPack("Test","An awesome datapack",3);
-DataPacks[0].newNamespace("Test");
-//download(0);
 
 function load(){
 	$(".submit").click(function(){
@@ -51,15 +41,16 @@ function load(){
 	
 //resize testing
 	var m_pos;
+	var dv_width;
 	function resize(e){
-		var parent = resize_el.parentNode;
-		var dx = m_pos - e.x;
-		parent.style.width = (parseInt(getComputedStyle(parent, '').width)+dx) + "px";
+		var dx = m_pos - e.x + dv_width;
+		$("#right_panel").width(dx);
 	}
 	
 	var resize_el = document.getElementById("resize");
 	resize_el.addEventListener("mousedown",function(e){
 		m_pos = e.x;
+		dv_width = $("#right_panel").width();
 		document.addEventListener("mousemove", resize, false);
 	}, false);
 	document.addEventListener("mouseup", function(){
@@ -73,11 +64,16 @@ $(document).ready(load);
 
 
 $(window).on("resize", function(){
-	console.log("Hi");
+	console.log("Resized");
 
 	
 });
 
+
+
+newDataPack("Test","An awesome datapack",3);
+DataPacks[0].newNamespace("Test");
+//download(0);
 
 
 
